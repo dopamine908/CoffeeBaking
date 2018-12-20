@@ -76,6 +76,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div id="chartdiv"></div>
+                <!-- test -->
             </div>
         </div>
     </body>
@@ -102,7 +103,7 @@ dateAxis.renderer.minGridDistance = 50;
 // Create series
 function createAxisAndSeries(field, name, opposite, bullet) {
   var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-  
+
   var series = chart.series.push(new am4charts.LineSeries());
   series.dataFields.valueY = field;
   series.dataFields.dateX = "date";
@@ -111,9 +112,9 @@ function createAxisAndSeries(field, name, opposite, bullet) {
   series.name = name;
   series.tooltipText = "{name}: [bold]{valueY}[/]";
   series.tensionX = 0.8;
-  
+
   var interfaceColors = new am4core.InterfaceColorSet();
-  
+
   switch(bullet) {
     case "triangle":
       var bullet = series.bullets.push(new am4charts.Bullet());
@@ -121,7 +122,7 @@ function createAxisAndSeries(field, name, opposite, bullet) {
       bullet.height = 12;
       bullet.horizontalCenter = "middle";
       bullet.verticalCenter = "middle";
-      
+
       var triangle = bullet.createChild(am4core.Triangle);
       triangle.stroke = interfaceColors.getFor("background");
       triangle.strokeWidth = 2;
@@ -135,7 +136,7 @@ function createAxisAndSeries(field, name, opposite, bullet) {
       bullet.height = 10;
       bullet.horizontalCenter = "middle";
       bullet.verticalCenter = "middle";
-      
+
       var rectangle = bullet.createChild(am4core.Rectangle);
       rectangle.stroke = interfaceColors.getFor("background");
       rectangle.strokeWidth = 2;
@@ -148,7 +149,7 @@ function createAxisAndSeries(field, name, opposite, bullet) {
       bullet.circle.strokeWidth = 2;
       break;
   }
-  
+
   valueAxis.renderer.line.strokeOpacity = 1;
   valueAxis.renderer.line.strokeWidth = 2;
   valueAxis.renderer.line.stroke = series.stroke;
