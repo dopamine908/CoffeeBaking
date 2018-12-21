@@ -1,202 +1,499 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-
-            #chartdiv {
+    <!-- Styles -->
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        .position-ref {
+            position: relative;
+        }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
+        .content {
+            text-align: center;
+        }
+        .title {
+            font-size: 84px;
+        }
+        .links > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+        #chartdiv {
             width: 1000px;
             height: 700px;
-            }
-        </style>
-        <!-- amchart script -->
-        <script src="https://www.amcharts.com/lib/4/core.js"></script>
-        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div id="chartdiv"></div>
-            </div>
+        }
+        .content_gird{
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-areas:
+                    "t1 t1 c1 c1 c1 c1 c1"
+                    "t1 t1 c1 c1 c1 c1 c1"
+                    "t2 t2 t2 t2 t2 t2 t2"
+                    "t2 t2 t2 t2 t2 t2 t2";
+        }
+        .table-body{
+            grid-area: t1;
+            height: 60vh;
+            border: solid 1px;
+        }
+        .chart-body{
+            grid-area: c1;
+            height: 60vh;
+            border: solid 1px;
+        }
+        .table-body2{
+            grid-area: t2;
+            height: 39vh;
+            border: solid 1px;
+        }
+        .table-grid-col-4{
+            height: 85%;
+            display: grid;
+            box-sizing: border-box;
+            grid-template-columns: repeat(6,1fr);
+            list-style-type: none;
+            margin:0;
+            padding: 0;
+            grid-auto-rows: minmax(30px,auto);
+        }
+        .table-grid-col-2{
+            height: 15%;
+            display: grid;
+            box-sizing: border-box;
+            grid-template-columns: repeat(2,1fr);
+            list-style-type: none;
+            margin:0;
+            padding: 0;
+            grid-auto-rows: minmax(51.5px,auto);
+        }
+        .table-body2 > table{
+            /* width: 100%; */
+            height: 100%;
+        }
+        .table-grid-col-4 > li,
+        .table-grid-col-2 > li{
+            border: solid 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td{
+            width: 50px;
+            font-size: 8px;
+        }
+        th {
+            text-align: left;
+        }
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+        input {
+            width: 100%;
+        }
+    </style>
+
+    <!-- amchart script -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+</head>
+<body>
+<div class="full-height">
+    <div class="content content_gird">
+        <div class="table-body">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>烘焙日期</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>溫濕度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>產區</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>處理法</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>生豆重</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>熟豆重</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>生豆含水</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>熟豆含水</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>失重量</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>失重比</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>表面焙度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>磨粉焙度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>進豆溫度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>下豆溫度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>回溫點</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>回溫時間</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>一爆溫度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>二爆溫度</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>一爆時間</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>二爆時間</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>一爆送風</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>二爆送風</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>下豆時間</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                    <th>杯測風味</th>
+                    <td>
+                        <input type="text" value="">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </body>
-
-    <!-- Chart code -->
-<script>
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-
-// Increase contrast by taking evey second color
-chart.colors.step = 5;
-
-// Add data
-chart.data = generateChartData();
-
-// Create axes
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.minGridDistance = 50;
-
-// Create series
-function createAxisAndSeries(field, name, opposite, bullet) {
-  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-  
-  var series = chart.series.push(new am4charts.LineSeries());
-  series.dataFields.valueY = field;
-  series.dataFields.dateX = "date";
-  series.strokeWidth = 2;
-  series.yAxis = valueAxis;
-  series.name = name;
-  series.tooltipText = "{name}: [bold]{valueY}[/]";
-  series.tensionX = 0.8;
-  
-  var interfaceColors = new am4core.InterfaceColorSet();
-  
-  switch(bullet) {
-    case "triangle":
-      var bullet = series.bullets.push(new am4charts.Bullet());
-      bullet.width = 12;
-      bullet.height = 12;
-      bullet.horizontalCenter = "middle";
-      bullet.verticalCenter = "middle";
-      
-      var triangle = bullet.createChild(am4core.Triangle);
-      triangle.stroke = interfaceColors.getFor("background");
-      triangle.strokeWidth = 2;
-      triangle.direction = "top";
-      triangle.width = 12;
-      triangle.height = 12;
-      break;
-    case "rectangle":
-      var bullet = series.bullets.push(new am4charts.Bullet());
-      bullet.width = 10;
-      bullet.height = 10;
-      bullet.horizontalCenter = "middle";
-      bullet.verticalCenter = "middle";
-      
-      var rectangle = bullet.createChild(am4core.Rectangle);
-      rectangle.stroke = interfaceColors.getFor("background");
-      rectangle.strokeWidth = 2;
-      rectangle.width = 10;
-      rectangle.height = 10;
-      break;
-    default:
-      var bullet = series.bullets.push(new am4charts.CircleBullet());
-      bullet.circle.stroke = interfaceColors.getFor("background");
-      bullet.circle.strokeWidth = 2;
-      break;
-  }
-  
-  valueAxis.renderer.line.strokeOpacity = 1;
-  valueAxis.renderer.line.strokeWidth = 2;
-  valueAxis.renderer.line.stroke = series.stroke;
-  valueAxis.renderer.labels.template.fill = series.stroke;
-  valueAxis.renderer.opposite = opposite;
-  valueAxis.renderer.grid.template.disabled = true;
-}
-
-createAxisAndSeries("visits", "Visits", false, "circle");
-createAxisAndSeries("views", "Views", false, "triangle");
-createAxisAndSeries("hits", "Hits", false, "rectangle");
-
-// Add legend
-chart.legend = new am4charts.Legend();
-
-// Add cursor
-chart.cursor = new am4charts.XYCursor();
-
-// generate some random data, quite different range
-function generateChartData() {
-  var chartData = [];
-  var firstDate = new Date();
-  firstDate.setDate(firstDate.getDate() - 100);
-  firstDate.setHours(0, 0, 0, 0);
-
-  var visits = 1600;
-  var hits = 2900;
-  var views = 8700;
-
-  for (var i = 0; i < 30; i++) {
-    // we create date objects here. In your data, you can have date strings
-    // and then set format of your dates using chart.dataDateFormat property,
-    // however when possible, use date objects, as this will speed up chart rendering.
-    var newDate = new Date(firstDate);
-    newDate.setDate(newDate.getDate() + i);
-
-    visits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-    hits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-    views += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-
-    chartData.push({
-      date: newDate,
-      visits: visits,
-      hits: hits,
-      views: views
-    });
-  }
-  return chartData;
-}
-</script>
+        <div class="chart-body">
+            <div id="chartdiv"></div>
+        </div>
+        <div class="table-body2">
+            {{--<table>--}}
+            {{--<tr>--}}
+            {{--<th>時間</th>--}}
+            {{--<th>1</th>--}}
+            {{--<th>2</th>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+            {{--<td>豆溫</td>--}}
+            {{--<td></td>--}}
+            {{--<td></td>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+            {{--<td>風門</td>--}}
+            {{--<td></td>--}}
+            {{--<td></td>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+            {{--<td>火力</td>--}}
+            {{--<td></td>--}}
+            {{--<td></td>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+            {{--<td>一分中內上升</td>--}}
+            {{--<td></td>--}}
+            {{--<td></td>--}}
+            {{--</tr>--}}
+            {{--</table>--}}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>時間（分）</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th>15</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>豆溫</td>
+                    @for($i = 1; $i <= 15; $i++)
+                        <td>
+                            <input type="number" name="temp[]" value="" onchange="setTemp()">
+                        </td>
+                    @endfor
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                    {{--<td>--}}
+                    {{--<input type="number" name="temp[]" value="" onchange="setTemp()">--}}
+                    {{--</td>--}}
+                </tr>
+                <tr>
+                    <td>風門</td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>火力</td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                    <td>
+                        <input type="number" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>一分鐘上升</td>
+                    <td>
+                        <input type="number" name="per_temp[0]" value="0" readonly>
+                    </td>
+                    @for($i = 1; $i <=14; $i++)
+                        <td>
+                            <input type="number" name="per_temp[{{ $i }}]" value="">
+                        </td>
+                    @endfor
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="{{asset('/')}}js/chart.js"></script>
+</body>
 </html>
